@@ -3,10 +3,11 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
   kotlin("jvm") version "1.4.10"
+  id("maven")
 }
 
 group = "com.rainmanhhh.github"
-version = "0.0.3"
+version = "0.0.4"
 
 repositories {
   mavenLocal()
