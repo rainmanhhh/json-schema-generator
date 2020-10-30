@@ -3,11 +3,11 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
   kotlin("jvm") version "1.4.10"
-  id("maven")
+  `maven-publish`
 }
 
-group = "com.rainmanhhh.github"
-version = "0.0.4"
+group = "com.github.rainmanhhh"
+version = "0.0.5"
 
 repositories {
   mavenLocal()
@@ -18,7 +18,7 @@ repositories {
 
 dependencies {
   implementation(kotlin("stdlib"))
-  implementation("com.github.victools:jsonschema-generator:4.16.0")
+  api("com.github.victools:jsonschema-generator:4.16.0")
 }
 
 val compileKotlin: KotlinCompile by tasks
@@ -28,5 +28,19 @@ tasks.withType<Test> {
   useJUnitPlatform()
   testLogging {
     events = setOf(PASSED, SKIPPED, FAILED)
+  }
+}
+
+publishing {
+  repositories {
+    mavenLocal()
+  }
+  publications {
+    create<MavenPublication>("maven") {
+      groupId = group.toString()
+      artifactId = rootProject.name
+      version = rootProject.version.toString()
+      from(components["kotlin"])
+    }
   }
 }
